@@ -5,7 +5,7 @@ require(['DashboardSourcesViewModel', 'WidgetSettingsEditorRegistry', 'FreeTextE
         });
     };
 
-    console.log("1234");
+    console.log("12345");
     loadTemplate('FreeTextTemplate');
     DashboardSourcesViewModel.getSingleton().addMiscellaneousSource(FreeTextExtension.options);
     WidgetSettingsEditorRegistry.getSingleton().registerEditor(FreeTextExtension.type, FreeTextExtension.editor);
