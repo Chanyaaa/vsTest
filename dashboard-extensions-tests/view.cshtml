@@ -1,0 +1,33 @@
+@model IViewElementContext
+
+<link rel="stylesheet" href="/theme/qunit-1.23.1.css">
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+@using (Html.Scripts())
+{
+    <script>
+        require.config({
+            paths: {
+                'QUnit': '/theme/qunit-1.23.1',
+                'FreeTextExtension': '/view/DashboardExtensions/resources/FreeTextExtension',
+                'UserNameWidget': '/view/DashboardExtensions/resources/UserNameWidget',
+                'ViewModel': '/view/UserNameWidget/resources/ViewModel',
+                'BaseWidgetSettingsEditor': '/view/dashboard-extensions-tests/resources/BaseWidgetSettingsEditor',
+                'EntityNavigationViewModel': '/view/dashboard-extensions-tests/resources/EntityNavigationViewModel'
+            },
+            shim: {
+                'QUnit': {
+                    exports: 'QUnit',
+                    init: function () {
+                        QUnit.config.autoload = false;
+                        QUnit.config.autostart = false;
+                    }
+                }
+            }
+        })
+    </script>
+    <script src="@View.ResourceUrl("tests.js")"></script>
+}
+

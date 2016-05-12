@@ -1,0 +1,26 @@
+@model IViewElementContext
+
+@{
+    var id = Guid.NewGuid();
+}
+
+<div id="@id">
+    <span data-bind="text: userName"></span>
+</div>
+
+@using (Html.Scripts())
+{
+    <script src="@View.ResourceUrl("ViewModel.js")"></script>
+
+    <script>
+        require(['jquery', 'jquery.widgetSettings', 'knockout', 'ViewModel'], function ($, WidgetSettings, ko, ViewModel) {
+            var $container = $('#@id');
+
+            var viewModel = new ViewModel();
+
+            //$container.onWidgetSettingsUpdated(viewModel.updateSettings);
+
+            ko.applyBindings(viewModel, $container.get(0));
+        });
+    </script>
+}

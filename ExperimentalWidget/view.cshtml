@@ -1,0 +1,26 @@
+@model IViewElementContext
+
+@{
+    var id = Guid.NewGuid();
+}
+
+<div id="@id">
+    <pre data-bind="text: text, style: { color: color, fontSize: fontSize}"></pre>
+</div>
+
+@using (Html.Scripts())
+{
+    <script src="@View.ResourceUrl("ExperimentalWidgetViewModel.js")"></script>
+
+    <script>
+        require(['jquery', 'jquery.widgetSettings', 'knockout', 'ExperimentalWidgetViewModel'], function ($, WidgetSettings, ko, ExperimentalWidgetViewModel) {
+            var $container = $('#@id');
+
+            var viewModel = new ExperimentalWidgetViewModel($container);
+
+            $container.onWidgetSettingsUpdated(viewModel.updateSettings);
+
+            ko.applyBindings(viewModel, $container.get(0));
+        });
+    </script>
+}

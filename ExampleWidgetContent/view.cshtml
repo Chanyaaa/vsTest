@@ -1,0 +1,31 @@
+@model IViewElementContext
+
+@{
+		var id = Guid.NewGuid();
+}
+
+<div id="@id">
+	<h1 class="placeholder-message placeholder-block">I am some custom content</h1>
+	<h5>View Parameters</h5>
+	<pre>@this.Model.Parameters.ToJson(indent: true)
+	</pre>
+	<h5>Widget Settings</h5>
+	<pre class="widget-settings"></pre>
+</div>
+
+@using (Html.Scripts())
+{
+		<script>
+			require(['jquery', 'jquery.widgetSettings'], function ($) {
+				var $container = $('#@id');
+				
+				function applySettings() {
+					var settings = $container.widgetSettings();
+					$container.find('.widget-settings').html(JSON.stringify(settings, null, 2));
+				}
+
+				$container.onWidgetSettingsUpdated(applySettings);
+				applySettings();
+			});
+		</script>
+}
